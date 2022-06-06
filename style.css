@@ -15,6 +15,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #ffffff;
 }
 
 img {
@@ -24,7 +25,7 @@ img {
 }
 
 a {
-  color: #000;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -52,14 +53,18 @@ header {
 }
 
 header .logo h1 {
-  font-size: 1rem;
-  font-weight: 800;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 header .search {
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+header .search img {
+  filter: invert(1);
 }
 
 .about {
@@ -75,8 +80,8 @@ header .search {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   font-weight: 600;
   border-radius: 50%;
   z-index: 10;
@@ -84,7 +89,7 @@ header .search {
 }
 
 .button:hover {
-  background-color: #333;
+  background-color: #bbb;
 }
 
 canvas {
@@ -100,10 +105,11 @@ canvas {
   width: 400px;
   height: 450px;
   z-index: 10;
-  background-color: #fff;
+  background-color: #222;
   border-radius: 20px;
-  box-shadow: 0px 10px 30px 2px #ddd;
+  /* box-shadow: 0px 10px 30px 2px #111; */
   padding: 40px;
+  color: #fff
 }
 
 .emoInfo h3 {
@@ -114,7 +120,7 @@ canvas {
 .emoInfo .name {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #333;
+  color: #aaa;
   margin-top: 15px;
 }
 
@@ -126,6 +132,7 @@ canvas {
 .emoInfo p {
   font-size: 0.85rem;
   margin-top: 10px;
+  color: #aaa;
 }
 
 .emoInfo .tag {
@@ -134,9 +141,9 @@ canvas {
 
 .emoInfo .tag .hashtag {
   padding: 8px 15px;
-  background-color: #eee;
-  border: 1px solid #aaa;
-  color: #333;
+  background-color: #333;
+  /* border: 1px solid #888; */
+  color: #aaa;
   border-radius: 50px;
   font-size: 0.7rem;
   font-weight: 600;

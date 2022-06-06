@@ -8,7 +8,7 @@ const sizes = {
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), antialias: true });
-renderer.setClearColor(0xffffff);
+// renderer.setClearColor(0xffffff);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(sizes.width, sizes.height);
 document.body.appendChild(renderer.domElement);
@@ -57,9 +57,11 @@ camera.position.set(1, 1, 5);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
+
+
 // boxGeometry
-const boxGeometry = new THREE.IcosahedronGeometry(0.3, 0);
-const boxMaterial = new THREE.MeshNormalMaterial();
+const starGeometry = new THREE.IcosahedronGeometry(0.3, 0);
+const starMaterial = new THREE.MeshNormalMaterial();
 
 // sphereGeometry
 const sphereGeometry = new THREE.SphereGeometry(1, 128, 128);
@@ -67,6 +69,17 @@ const sphereMaterial = new THREE.MeshNormalMaterial();
 
 // PLANE
 const geometry = new THREE.SphereGeometry(1, 128, 128);
+// const geometry = new THREE.BoxGeometry(1, 1, 1); // 박스
+// const geometry = new THREE.CapsuleGeometry(1, 1, 4, 8); // 강낭콩
+// const geometry = new THREE.ConeGeometry( 5, 20, 32 ); // 원뿔
+// const geometry = new THREE.CylinderGeometry( 5, 5, 20, 32 );
+// const geometry = new THREE.DodecahedronGeometry(1, 1); //
+// const geometry = new THREE.BoxGeometry( 100, 100, 100 );
+// const geometry = new THREE.IcosahedronGeometry(1, 0)
+// const geometry = new THREE.OctahedronGeometry(1, 0) // 다이아몬드
+// const geometry = new THREE.TorusGeometry( 10, 3, 16, 100 ); //도넛
+// const geometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 ); //구불구불
+
 const sphere = new THREE.Mesh(geometry,
     new THREE.MeshStandardMaterial({
         map: waterBaseColor,
@@ -135,7 +148,7 @@ const tweenCamera = (camera, position, duration) => {
 
 
 for (let i = 0; i < 200; i++) {
-  const box = new THREE.Mesh(boxGeometry, boxMaterial);
+  const box = new THREE.Mesh(starGeometry, starMaterial);
 
   box.position.x = (Math.random() - 0.5) * 10;
   box.position.y = (Math.random() - 0.5) * 10;
@@ -182,7 +195,8 @@ dirLight.shadow.camera.lookAt(0, 0, -30);
 scene.add(dirLight);
 
 
-let k = 10;
+let k = 2;
+let m = 0.1;
 
 // 노이즈 
 const update = function () {
@@ -190,13 +204,15 @@ const update = function () {
 
   if (currPosition == 1 ) {
     k = 0;
+    m = 0;
   } else { 
-    k = 3;
+    k = 2;
+    m = 0.1;
   }
 
   for (let i = 0; i < geometry.vertices.length; i++) {
     let p = geometry.vertices[i];
-    p.normalize().multiplyScalar(1 + 0.3 * noise.perlin3(p.x * k + time, p.y * k, p.z * k));
+    p.normalize().multiplyScalar(1 + m * noise.perlin3(p.x * k + time, p.y * k, p.z * k));
   }
   geometry.computeVertexNormals();
   geometry.normalsNeedUpdate = true;
@@ -213,7 +229,9 @@ const animate = () => {
 
   controls.update();
 
-  TWEEN.update()
+  TWEEN.update();
+
+  update();
 
   render();
   window.requestAnimationFrame(animate);
